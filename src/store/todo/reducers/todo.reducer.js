@@ -16,8 +16,16 @@ export const initialState = {
 };
 
 export const todoReducer = (state = initialState, action) => {
-  console.log("Action Reducer: ", action);
+  // console.log("Action Reducer: ", action);
   switch (action?.type) {
+    case TODO_ACTION_TYPES.GET_TODO_SUCCESS:
+      console.log("Action GET: ", action.payload);
+      const getTodo = {
+        ...action.payload,
+      };
+      return {
+        todos: [getTodo],
+      };
     case TODO_ACTION_TYPES.ADD_TODO_SUCCESS:
       const newTodo = {
         ...action.payload,
