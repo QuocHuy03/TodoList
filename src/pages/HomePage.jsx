@@ -7,16 +7,17 @@ import {
 } from "../store/todo/actions";
 import { fetchAllTodos } from "../utils/getAllTodos";
 import { useQuery } from "@tanstack/react-query";
-import { Card, Col, Layout, Row, message } from "antd";
+import { Card, Col, Row, message } from "antd";
 import AddTodoForm from "../components/AddTodoForm";
 import TodoList from "../components/TodoList";
+import Layout from "../components/Layout";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const { data, isLoading } = useQuery(["todos"], () => fetchAllTodos(), {
     staleTime: 1000,
+    refetchOnMount: false,
   });
-
   // dispatch(getTodo(data));
 
   const todos = useSelector((state) => state.todo.todos);
