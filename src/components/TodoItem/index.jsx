@@ -20,6 +20,7 @@ const TodoItem = ({ todo, onTodoRemoval, onTodoToggle }) => {
 
   const showModal = (data) => {
     form.setFieldsValue({
+      editID: data.id,
       title: data.title,
     });
     setOpen(true);
@@ -101,6 +102,9 @@ const TodoItem = ({ todo, onTodoRemoval, onTodoToggle }) => {
         onCancel={handleCancel}
       >
         <Form layout="horizontal" className="todo-form" form={form}>
+          <Form.Item name="editID" style={{ display: "none" }}>
+            <Input type="hidden" />
+          </Form.Item>
           <Form.Item
             name="title"
             rules={[{ required: true, message: "This field is required" }]}
