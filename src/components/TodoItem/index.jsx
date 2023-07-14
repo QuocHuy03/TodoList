@@ -13,7 +13,7 @@ import {
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import "./style.css";
 
-const TodoItem = ({ todo, onTodoRemoval, onTodoToggle }) => {
+const TodoItem = ({ todo, onTodoRemoval, onTodoToggle, onTodoUpdateTitle }) => {
   const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -44,7 +44,13 @@ const TodoItem = ({ todo, onTodoRemoval, onTodoToggle }) => {
   };
 
   const onFinish = (values) => {
-    console.log("Form submitted:", values);
+    onTodoUpdateTitle({
+      id: values.editID,
+      title: values.title,
+      updateAt: new Date().toISOString(),
+    });
+
+    form.resetFields();
   };
 
   const handleCancel = () => {

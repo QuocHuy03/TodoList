@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getTodo, removeTodo, updateTodo } from "../store/todo/actions";
+import {
+  getTodo,
+  removeTodo,
+  updateTodoStatus,
+  updateTodoTitle,
+} from "../store/todo/actions";
 import { fetchAllTodos, postTodo } from "../utils/todoApi";
 import { useQuery } from "@tanstack/react-query";
 import { Card, Col, Empty, Row, message } from "antd";
@@ -43,8 +48,13 @@ const HomePage = () => {
   };
 
   const handleToggleTodoStatus = (todo) => {
-    dispatch(updateTodo(todo));
+    dispatch(updateTodoStatus(todo));
     message.info("Todo state updated!");
+  };
+
+  const handleTodoUpdateTitle = (todo) => {
+    dispatch(updateTodoTitle(todo));
+    message.info("Todo title updated!");
   };
 
   return (
@@ -88,6 +98,7 @@ const HomePage = () => {
                 todos={todos}
                 onTodoRemoval={handleRemoveTodo}
                 onTodoToggle={handleToggleTodoStatus}
+                onTodoUpdateTitle={handleTodoUpdateTitle}
               />
             ) : (
               <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />

@@ -21,9 +21,16 @@ export function removeTodo(todo) {
   };
 }
 
-export function updateTodo(todo) {
+export function updateTodoStatus(todo) {
   return {
     type: TODO_ACTION_TYPES.UPDATE_TODO_STATUS_SUCCESS,
+    payload: todo,
+  };
+}
+
+export function updateTodoTitle(todo) {
+  return {
+    type: TODO_ACTION_TYPES.UPDATE_TODO_TITLE_SUCCESS,
     payload: todo,
   };
 }

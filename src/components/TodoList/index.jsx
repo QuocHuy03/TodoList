@@ -2,7 +2,12 @@ import React from "react";
 import { List, Empty } from "antd";
 import TodoItem from "../TodoItem";
 
-const TodoList = ({ todos, onTodoRemoval, onTodoToggle }) => {
+const TodoList = ({
+  todos,
+  onTodoRemoval,
+  onTodoToggle,
+  onTodoUpdateTitle,
+}) => {
   return (
     <div>
       <List
@@ -13,6 +18,7 @@ const TodoList = ({ todos, onTodoRemoval, onTodoToggle }) => {
             todo={todo}
             onTodoToggle={onTodoToggle}
             onTodoRemoval={onTodoRemoval}
+            onTodoUpdateTitle={onTodoUpdateTitle}
           />
         )}
         pagination={{
