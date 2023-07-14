@@ -5,12 +5,13 @@ import {
   removeTodo,
   updateTodo,
 } from "../store/todo/actions";
-import { fetchAllTodos } from "../utils/getAllTodos";
+import { fetchAllTodos, postTodo } from "../utils/getAllTodos";
 import { useQuery } from "@tanstack/react-query";
-import { Card, Col, Row, message } from "antd";
+import { Card, Col, Empty, Row, message } from "antd";
 import AddTodoForm from "../components/AddTodoForm";
 import TodoList from "../components/TodoList";
 import Layout from "../components/Layout";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -18,21 +19,30 @@ const HomePage = () => {
     staleTime: 1000,
     refetchOnMount: false,
   });
-  // dispatch(getTodo(data));
+
+  useEffect(() => {
+    if (data) {
+      dispatch(getTodo(data));
+    }
+  }, [data, dispatch]);
 
   const todos = useSelector((state) => state.todo.todos);
+
   if (isLoading) {
     return <h1>Loading ...</h1>;
   }
 
-  const handleFormSubmit = (todo) => {
-    dispatch(addTodo(todo));
-    message.success("Todo added!");
+  const handleFormSubmit = async (todo) => {
+    try {
+      await postTodo(todo, dispatch);
+      message.success("Todo added!");
+    } catch (error) {
+      console.error("Error adding todo:", error);
+    }
   };
-
   const handleRemoveTodo = (todo) => {
     dispatch(removeTodo(todo));
-    message.warn("Todo removed!");
+    message.warning("Todo removed!");
   };
 
   const handleToggleTodoStatus = (todo) => {
@@ -54,12 +64,7 @@ const HomePage = () => {
           md={{ span: 21 }}
           lg={{ span: 20 }}
           xl={{ span: 18 }}
-        >
-          {/* <PageHeader
-            title="Add Todo"
-            subTitle="To add a todo, just fill the form below and click in add todo."
-          /> */}
-        </Col>
+        ></Col>
 
         <Col
           xs={{ span: 23 }}
@@ -68,7 +73,7 @@ const HomePage = () => {
           lg={{ span: 20 }}
           xl={{ span: 18 }}
         >
-          <Card title="Create a new todo">
+          <Card title="Create To New Todo">
             <AddTodoForm onFormSubmit={handleFormSubmit} />
           </Card>
         </Col>
@@ -81,11 +86,15 @@ const HomePage = () => {
           xl={{ span: 18 }}
         >
           <Card title="Todo List">
-            <TodoList
-              todos={todos}
-              onTodoRemoval={handleRemoveTodo}
-              onTodoToggle={handleToggleTodoStatus}
-            />
+            {todos && todos.length > 0 ? (
+              <TodoList
+                todos={todos}
+                onTodoRemoval={handleRemoveTodo}
+                onTodoToggle={handleToggleTodoStatus}
+              />
+            ) : (
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+            )}
           </Card>
         </Col>
       </Row>

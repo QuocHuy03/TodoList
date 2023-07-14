@@ -1,14 +1,12 @@
 import React from "react";
 import { List } from "antd";
 import TodoItem from "../TodoItem";
-
+import { Empty } from "antd";
 
 const TodoList = ({ todos, onTodoRemoval, onTodoToggle }) => {
   return (
     <List
-      locale={{
-        emptyText: "There's nothing to do :(",
-      }}
+      locale={<Empty />}
       dataSource={todos}
       renderItem={(todo) => (
         <TodoItem

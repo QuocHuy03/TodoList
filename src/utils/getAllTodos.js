@@ -1,5 +1,6 @@
-import { collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import { addTodo } from "../store/todo/actions";
 
 export const fetchAllTodos = async () => {
   try {
@@ -9,8 +10,23 @@ export const fetchAllTodos = async () => {
       ...doc.data(),
       id: doc.id,
     }));
+    console.log(todos);
     return todos;
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const postTodo = async (todo, dispatch) => {
+  const todosCollectionRef = collection(db, "todos");
+  try {
+    const docRef = await addDoc(todosCollectionRef, todo);
+    const newTodo = {
+      ...todo,
+      id: docRef.id,
+    };
+    dispatch(addTodo(newTodo));
+  } catch (error) {
+    console.error("Error adding todo:", error);
   }
 };
