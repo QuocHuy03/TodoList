@@ -1,14 +1,19 @@
-import { addDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  query,
+  orderBy,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { addTodo } from "../store/todo/actions";
 
 export const fetchAllTodos = async () => {
   try {
     const todosCollectionRef = collection(db, "todos");
-    const querySnapshot = await getDocs(query(
-      todosCollectionRef,
-      orderBy("title", "desc")
-    ));
+    const querySnapshot = await getDocs(
+      query(todosCollectionRef, orderBy("createdAt", "desc"))
+    );
     const todos = querySnapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
@@ -28,7 +33,6 @@ export const postTodo = async (todo, dispatch) => {
       id: docRef.id,
     };
     dispatch(addTodo(newTodo));
-  
   } catch (error) {
     console.error("Error adding todo:", error);
   }
