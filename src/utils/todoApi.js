@@ -10,7 +10,6 @@ export const fetchAllTodos = async () => {
       ...doc.data(),
       id: doc.id,
     }));
-    console.log(todos);
     return todos;
   } catch (error) {
     console.error(error);

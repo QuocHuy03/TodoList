@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addTodo,
   getTodo,
   removeTodo,
   updateTodo,
 } from "../store/todo/actions";
-import { fetchAllTodos, postTodo } from "../utils/getAllTodos";
+import { fetchAllTodos, postTodo } from "../utils/todoApi";
 import { useQuery } from "@tanstack/react-query";
 import { Card, Col, Empty, Row, message } from "antd";
 import AddTodoForm from "../components/AddTodoForm";

@@ -39,7 +39,6 @@ export const todoReducer = (state = initialState, action) => {
         todos: updatedTodos,
       };
     case TODO_ACTION_TYPES.REMOVE_TODO_SUCCESS:
-      console.log(action.payload);
       const todoDocDelete = doc(db, "todos", action.payload.id);
       deleteDoc(todoDocDelete);
       return {
