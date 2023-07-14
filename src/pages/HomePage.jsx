@@ -1,16 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getTodo, removeTodo, updateTodo } from "../store/todo/actions";
 import { fetchAllTodos, postTodo } from "../utils/todoApi";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Card, Col, Empty, Row, message } from "antd";
-import AddTodoForm from "../components/AddTodoForm";
+import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
 import Layout from "../components/Layout";
 import { useEffect } from "react";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const queryClient = useQueryClient();
   const { data, isLoading } = useQuery(["todos"], () => fetchAllTodos(), {
     staleTime: 1000,
     refetchOnMount: false,
@@ -72,7 +71,7 @@ const HomePage = () => {
           xl={{ span: 18 }}
         >
           <Card title="Create To New Todo">
-            <AddTodoForm onFormSubmit={handleFormSubmit} />
+            <TodoForm onFormSubmit={handleFormSubmit} />
           </Card>
         </Col>
 

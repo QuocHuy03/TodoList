@@ -1,11 +1,10 @@
 import React from "react";
-import { List } from "antd";
+import { List, Empty } from "antd";
 import TodoItem from "../TodoItem";
-import { Empty } from "antd";
 
 const TodoList = ({ todos, onTodoRemoval, onTodoToggle }) => {
   return (
-    // <div style={{ maxHeight: "456px", overflowY: "auto" }}>
+    <div>
       <List
         locale={<Empty />}
         dataSource={todos}
@@ -21,7 +20,7 @@ const TodoList = ({ todos, onTodoRemoval, onTodoToggle }) => {
           pageSize: 5,
         }}
       />
-    // </div>
+    </div>
   );
 };
 
