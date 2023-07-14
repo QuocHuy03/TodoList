@@ -5,21 +5,23 @@ import { Empty } from "antd";
 
 const TodoList = ({ todos, onTodoRemoval, onTodoToggle }) => {
   return (
-    <List
-      locale={<Empty />}
-      dataSource={todos}
-      renderItem={(todo) => (
-        <TodoItem
-          todo={todo}
-          onTodoToggle={onTodoToggle}
-          onTodoRemoval={onTodoRemoval}
-        />
-      )}
-      pagination={{
-        position: "bottom",
-        pageSize: 10,
-      }}
-    />
+    // <div style={{ maxHeight: "456px", overflowY: "auto" }}>
+      <List
+        locale={<Empty />}
+        dataSource={todos}
+        renderItem={(todo) => (
+          <TodoItem
+            todo={todo}
+            onTodoToggle={onTodoToggle}
+            onTodoRemoval={onTodoRemoval}
+          />
+        )}
+        pagination={{
+          position: "bottom",
+          pageSize: 5,
+        }}
+      />
+    // </div>
   );
 };
 

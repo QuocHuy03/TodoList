@@ -8,7 +8,9 @@ const TodoItem = ({ todo, onTodoRemoval, onTodoToggle }) => {
     <List.Item
       actions={[
         <Tooltip
-          title={todo.completed ? "Mark as uncompleted" : "Mark as completed"}
+          title={
+            todo.completed ? "Huydev as uncompleted" : "Huydev as completed"
+          }
         >
           <Switch
             checkedChildren={<CheckOutlined />}
@@ -17,6 +19,9 @@ const TodoItem = ({ todo, onTodoRemoval, onTodoToggle }) => {
             defaultChecked={todo.completed}
           />
         </Tooltip>,
+        <Button className="edit-todo-button" type="primary">
+          !
+        </Button>,
         <Popconfirm
           title="Are you sure you want to delete?"
           onConfirm={() => {

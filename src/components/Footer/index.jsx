@@ -1,8 +1,7 @@
 const Footer = () => {
   return (
     <div
-      className="container-fluid"
-      style={{ position: "fixed", bottom: 0, left: 0, right: 0, width: "100%"  }}
+      className="container-fluid mt-4"
     >
       <div
         className="row border-top d-flex justify-content-between text-center"
