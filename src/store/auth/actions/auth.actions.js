@@ -14,16 +14,3 @@ export const loginFailure = (error) => ({
   payload: error,
 });
 
-export const registerRequest = () => ({
-  type: AUTH_ACTION_TYPES.REGISTER_REQUEST,
-});
-
-export const registerSuccess = (user) => ({
-  type: AUTH_ACTION_TYPES.REGISTER_SUCCESS,
-  payload: user,
-});
-
-export const registerFailure = (error) => ({
-  type: AUTH_ACTION_TYPES.REGISTER_FAILURE,
-  payload: error,
-});
