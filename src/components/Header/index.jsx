@@ -1,10 +1,19 @@
+import { Button } from "antd";
 import { AppContext } from "../../context/AppContextProvider";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutSuccess } from "../../store/auth/actions/auth.actions";
 
 const Header = () => {
   const { user } = useContext(AppContext);
   const authUser = user[0];
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(logoutSuccess());
+  };
+
   return (
     <div className="container-fluid">
       <div
@@ -32,9 +41,7 @@ const Header = () => {
         </div>
         <div className="col-4 d-flex d-sm-none align-items-center justify-content-center">
           {authUser ? (
-            <Link to={"/login"} style={{ textDecoration: "none" }}>
-              Logout
-            </Link>
+            <Button onClick={logout}>Logout</Button>
           ) : (
             <Link to={"/login"} style={{ textDecoration: "none" }}>
               Login

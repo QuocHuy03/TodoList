@@ -32,7 +32,7 @@ export const authReducer = (state = initialState, action) => {
         error: action.payload,
       };
     case AUTH_ACTION_TYPES.LOGOUT_SUCCESS:
-      return state;
+      return initialState;
     default:
       return state;
   }

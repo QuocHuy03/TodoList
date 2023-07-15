@@ -1,9 +1,10 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import NotPage from "./pages/NotPage";
-import Auth from "./pages/Auth";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./context/AppContextProvider";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   const { user } = useContext(AppContext);
@@ -12,7 +13,7 @@ function App() {
     if (user) {
       navigate("/");
     } else {
-      navigate("/auth");
+      navigate("/login");
     }
   }, [user]);
 
@@ -26,7 +27,8 @@ function App() {
           </>
         ) : (
           <>
-            <Route path="/auth" element={<Auth />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </>
         )}
       </Routes>
