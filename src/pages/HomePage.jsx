@@ -1,10 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getTodo,
-  removeTodo,
-  updateTodoStatus,
-  updateTodoTitle,
-} from "../store/todo/actions";
+
 import { fetchAllTodos, postTodo } from "../utils/todoApi";
 import { useQuery } from "@tanstack/react-query";
 import { Card, Col, Empty, Row, message } from "antd";
@@ -12,6 +7,12 @@ import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
 import Layout from "../components/Layout";
 import { useEffect } from "react";
+import {
+  getTodo,
+  removeTodo,
+  updateTodoStatus,
+  updateTodoTitle,
+} from "../store/todo/actions";
 
 const HomePage = () => {
   const dispatch = useDispatch();
