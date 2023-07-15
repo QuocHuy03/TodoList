@@ -3,10 +3,9 @@ import HomePage from "./pages/HomePage";
 import NotPage from "./pages/NotPage";
 import { useSelector } from "react-redux";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
 
 function App() {
-  const huydev = useSelector((state) => state.auth);
+  const huydev = useSelector((state) => state.auth.user);
   console.log(huydev)
   return (
     <>
@@ -18,8 +17,7 @@ function App() {
           </>
         ) : (
           <>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/auth" element={<Login />} />
           </>
         )}
       </Routes>
