@@ -20,7 +20,7 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const { user } = useContext(AppContext);
   const userID = user.uid;
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, refetch } = useQuery(
     ["todos", userID],
     () => fetchAllTodoByID(userID),
     {
@@ -46,6 +46,7 @@ const HomePage = () => {
       await postTodo(todo, dispatch);
       const updatedTodos = await fetchAllTodoByID(userID);
       dispatch(getTodo(updatedTodos));
+      refetch();
       message.success("Todo added!");
     } catch (error) {
       console.error("Error adding todo:", error);
@@ -53,16 +54,19 @@ const HomePage = () => {
   };
   const handleRemoveTodo = (todo) => {
     dispatch(removeTodo(todo));
+    refetch();
     message.warning("Todo removed!");
   };
 
   const handleToggleTodoStatus = (todo) => {
     dispatch(updateTodoStatus(todo));
+    refetch();
     message.info("Todo state updated!");
   };
 
   const handleTodoUpdateTitle = (todo) => {
     dispatch(updateTodoTitle(todo));
+    refetch();
     message.info("Todo title updated!");
   };
 
