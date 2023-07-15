@@ -7,7 +7,7 @@ import { logoutSuccess } from "../../store/auth/actions/auth.actions";
 
 const Header = () => {
   const { user } = useContext(AppContext);
-  const authUser = user[0];
+  const authUser = user.providerData[0];
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -26,9 +26,9 @@ const Header = () => {
         >
           <img
             src={`${
-              authUser
+              authUser.photoURL
                 ? authUser.photoURL
-                : `https://ui-avatars.com/api/name=${authUser.displayName}`
+                : `https://ui-avatars.com/api/name=${authUser.uid}`
             }`}
             alt="Logo"
             height={32}

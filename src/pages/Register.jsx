@@ -1,4 +1,4 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import {
   registerFailure,
@@ -6,6 +6,7 @@ import {
 } from "../store/auth/actions/auth.actions";
 import { useDispatch } from "react-redux";
 import { auth } from "../firebaseConfig";
+import { Link } from "react-router-dom";
 const Register = () => {
   const dispatch = useDispatch();
   const onFinish = (values) => {
@@ -13,9 +14,11 @@ const Register = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         dispatch(registerSuccess(user));
+        message.success("Đăng Nhập Thành Công");
       })
       .catch((error) => {
         dispatch(registerFailure(error.message));
+        message.error(`${error.message}`);
       });
   };
   return (
@@ -62,6 +65,9 @@ const Register = () => {
             Register
           </Button>
         </Form.Item>
+        <Link to={"/login"} className="login-form-forgot">
+          Đã Có Tài Khoản? Login
+        </Link>
       </Form>
     </div>
   );

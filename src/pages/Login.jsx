@@ -8,13 +8,14 @@ import {
   loginRequest,
   loginSuccess,
 } from "../store/auth/actions/auth.actions";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
   const handleAuthGoogle = () => {
     dispatch(loginRequest());
     signInWithPopup(auth, provider).then((data) => {
-      dispatch(loginSuccess(data.user.providerData));
+      dispatch(loginSuccess(data.user));
       message.success("Đăng Nhập Thành Công Với Google");
     });
   };
@@ -29,7 +30,7 @@ const Login = () => {
       })
       .catch((error) => {
         dispatch(loginFailure(error.message));
-        message.error("Đăng Nhập Thất Bại");
+        message.error(`${error.message}`);
       });
   };
 
@@ -81,6 +82,7 @@ const Login = () => {
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
+          <Link to={'/register'} className="login-form-forgot">Chưa Có Tài Khoản, Register?</Link>
         </Form.Item>
 
         <Form.Item>
@@ -94,12 +96,11 @@ const Login = () => {
           Or
           <Button
             type="primary"
-            htmlType="submit"
             className="login-form-button"
             danger
             onClick={handleAuthGoogle}
           >
-            Google
+            Đăng Nhập Với Google
           </Button>
         </Form.Item>
       </Form>
