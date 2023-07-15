@@ -13,6 +13,7 @@ import {
   updateTodoStatus,
   updateTodoTitle,
 } from "../store/todo/actions";
+import Loading from "../components/Loading";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const HomePage = () => {
   const todos = useSelector((state) => state.todo.todos);
 
   if (isLoading) {
-    return <h1>Loading ...</h1>;
+    return <Loading status={true} />;
   }
 
   const handleFormSubmit = async (todo) => {
