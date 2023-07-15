@@ -1,23 +1,32 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import NotPage from "./pages/NotPage";
-import { useSelector } from "react-redux";
-import Login from "./pages/Login";
+import Auth from "./pages/Auth";
+import { useContext, useEffect } from "react";
+import { AppContext } from "./context/AppContextProvider";
 
 function App() {
-  const huydev = useSelector((state) => state.auth.user);
-  console.log(huydev)
+  const { user } = useContext(AppContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    } else {
+      navigate("/auth");
+    }
+  }, [user]);
+
   return (
     <>
       <Routes>
-        {huydev ? (
+        {user ? (
           <>
             <Route path="/" element={<HomePage />} />
             <Route path="*" element={<NotPage />} />
           </>
         ) : (
           <>
-            <Route path="/auth" element={<Login />} />
+            <Route path="/auth" element={<Auth />} />
           </>
         )}
       </Routes>

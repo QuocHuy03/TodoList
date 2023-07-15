@@ -1,5 +1,5 @@
 import { Form, Input, Checkbox, Button } from "antd";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { auth, provider } from "../firebaseConfig";
 import { useDispatch } from "react-redux";
@@ -10,12 +10,14 @@ const Login = () => {
   const handleAuthGoogle = () => {
     dispatch(loginRequest());
     signInWithPopup(auth, provider).then((data) => {
-      dispatch(loginSuccess(data.user));
+      dispatch(loginSuccess(data.user.providerData));
     });
   };
 
   const onFinish = (values) => {
-    console.log("Success:", values);
+    dispatch(loginRequest());
+    signInWithEmailAndPassword(values.email, values.password)
+   
   };
 
   return (
@@ -30,18 +32,19 @@ const Login = () => {
         autoComplete="off"
       >
         <Form.Item
-          name="username"
+          name="email"
           rules={[
             {
               required: true,
-              message: "Please input your Username!",
+              message: "Please input your Email!",
             },
           ]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
             size="large"
-            placeholder="Username"
+            type="email"
+            placeholder="Email"
           />
         </Form.Item>
         <Form.Item

@@ -8,7 +8,8 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store/app.store.js";
 import { PersistGate } from "redux-persist/integration/react";
-import Loading from "./components/Loading"
+import Loading from "./components/Loading";
+import AppContextProvider from "./context/AppContextProvider";
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -17,8 +18,10 @@ root.render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
-          <PersistGate loading={<Loading/>} persistor={persistor}>
-            <App />
+          <PersistGate loading={<Loading />} persistor={persistor}>
+            <AppContextProvider>
+              <App />
+            </AppContextProvider>
           </PersistGate>
         </Provider>
         <ReactQueryDevtools initialIsOpen={false} />

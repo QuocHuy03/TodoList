@@ -31,6 +31,8 @@ export const authReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case AUTH_ACTION_TYPES.LOGOUT_SUCCESS:
+      return state;
     default:
       return state;
   }
