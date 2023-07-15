@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchAllTodos, postTodo } from "../utils/todoApi";
+import { fetchAllTodoByID, postTodo } from "../utils/todoApi";
 import { useQuery } from "@tanstack/react-query";
 import { Card, Col, Empty, Row, message } from "antd";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
 import Layout from "../components/Layout";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import {
   getTodo,
   removeTodo,
@@ -14,13 +14,20 @@ import {
   updateTodoTitle,
 } from "../store/todo/actions";
 import Loading from "../components/Loading";
+import { AppContext } from "../context/AppContextProvider";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { data, isLoading } = useQuery(["todos"], () => fetchAllTodos(), {
-    staleTime: 1000,
-    refetchOnMount: false,
-  });
+  const { user } = useContext(AppContext);
+  const userID = user.uid;
+  const { data, isLoading } = useQuery(
+    ["todos", userID],
+    () => fetchAllTodoByID(userID),
+    {
+      staleTime: 1000,
+      refetchOnMount: false,
+    }
+  );
 
   useEffect(() => {
     if (data) {
@@ -37,7 +44,7 @@ const HomePage = () => {
   const handleFormSubmit = async (todo) => {
     try {
       await postTodo(todo, dispatch);
-      const updatedTodos = await fetchAllTodos();
+      const updatedTodos = await fetchAllTodoByID(userID);
       dispatch(getTodo(updatedTodos));
       message.success("Todo added!");
     } catch (error) {

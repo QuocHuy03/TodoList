@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutSuccess } from "../../store/auth/actions/auth.actions";
+import { removeLocal } from "../../store/todo/actions";
 
 const Header = () => {
   const { user } = useContext(AppContext);
@@ -11,7 +12,9 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const logout = () => {
+    localStorage.clear();
     dispatch(logoutSuccess());
+    dispatch(removeLocal());
   };
 
   return (

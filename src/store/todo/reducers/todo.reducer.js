@@ -61,6 +61,9 @@ export const todoReducer = (state = initialState, action) => {
       return {
         todos: state.todos.filter((todo) => todo.id !== action.payload.id),
       };
+
+    case TODO_ACTION_TYPES.REMOTE_LOCAL:
+      return initialState;
     default:
       return state;
   }

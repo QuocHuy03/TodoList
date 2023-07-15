@@ -34,3 +34,11 @@ export function updateTodoTitle(todo) {
     payload: todo,
   };
 }
+
+export function removeLocal(todo) {
+  return {
+    type: TODO_ACTION_TYPES.REMOTE_LOCAL,
+    payload: todo,
+  };
+}
+
