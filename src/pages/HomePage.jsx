@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchAllTodoByID, postTodo } from "../utils/todoApi";
 import { useQuery } from "@tanstack/react-query";
-import { Card, Col, Empty, Row, message } from "antd";
+import { Card, Col, Empty, Row, message, Input } from "antd";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
 import Layout from "../components/Layout";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   getTodo,
   removeTodo,
@@ -16,8 +16,11 @@ import {
 import Loading from "../components/Loading";
 import { AppContext } from "../context/AppContextProvider";
 
+const { Search } = Input;
+
 const HomePage = () => {
   const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
   const { user } = useContext(AppContext);
   const userID = user.uid;
   const { data, isLoading, refetch } = useQuery(
@@ -70,6 +73,14 @@ const HomePage = () => {
     message.info("Todo title updated!");
   };
 
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredTodos = todos.filter((todo) =>
+    todo.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <Layout>
       <Row
@@ -105,10 +116,23 @@ const HomePage = () => {
           lg={{ span: 20 }}
           xl={{ span: 18 }}
         >
-          <Card title="Todo List">
-            {todos && todos.length > 0 ? (
+          <Card>
+            <div className="card-header">
+              <div className="card-title-container">
+                <span className="card-title">Todo List</span>
+              </div>
+              <div className="search-container">
+                <Search
+                  placeholder="Search"
+                  allowClear
+                  onChange={handleSearch}
+                  style={{ width: 200 }}
+                />
+              </div>
+            </div>
+            {filteredTodos.length > 0 ? (
               <TodoList
-                todos={todos}
+                todos={filteredTodos}
                 onTodoRemoval={handleRemoveTodo}
                 onTodoToggle={handleToggleTodoStatus}
                 onTodoUpdateTitle={handleTodoUpdateTitle}
