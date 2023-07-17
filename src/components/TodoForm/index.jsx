@@ -11,6 +11,7 @@ const AddTodoForm = ({ onFormSubmit }) => {
   const onFinish = () => {
     onFormSubmit({
       userID: authUser,
+      completed: false,
       title: form.getFieldValue("title"),
       createdAt: new Date().toISOString(),
       updateAt: new Date().toISOString(),

@@ -96,7 +96,12 @@ const TodoItem = ({ todo, onTodoRemoval, onTodoToggle, onTodoUpdateTitle }) => {
         key={todo.id}
       >
         <div className="todo-item">
-          <Tag className="todo-tag">{todo.title}</Tag>
+          <Tag
+            className="todo-tag"
+            style={{ textDecoration: todo.completed ? "none" : "line-through" }}
+          >
+            {todo.title}
+          </Tag>
         </div>
       </List.Item>
 
