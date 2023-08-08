@@ -46,11 +46,15 @@ const HomePage = () => {
 
   const handleFormSubmit = async (todo) => {
     try {
-      await postTodo(todo, dispatch);
-      const updatedTodos = await fetchAllTodoByID(userID);
-      dispatch(getTodo(updatedTodos));
+      const huydev = await postTodo(todo, dispatch);
+      if (huydev.status === false) {
+        message.error(huydev.message);
+      } else {
+        const updatedTodos = await fetchAllTodoByID(userID);
+        dispatch(getTodo(updatedTodos));
+        message.success(huydev.message);
+      }
       refetch();
-      message.success("Todo added!");
     } catch (error) {
       console.error("Error adding todo:", error);
     }

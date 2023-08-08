@@ -35,7 +35,7 @@ export const todoReducer = (state = initialState, action) => {
         title: action.payload.title,
         updateAt: action.payload.updateAt,
       };
-      console.log("data update : ", updateDataTitle);
+      // console.log("data update : ", updateDataTitle);
       updateDoc(todoDocUpdateTitle, updateDataTitle);
       return {
         todos: updatedTodosTitle,

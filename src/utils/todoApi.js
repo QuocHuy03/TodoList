@@ -34,12 +34,21 @@ export const fetchAllTodoByID = async (userID) => {
 export const postTodo = async (todo, dispatch) => {
   const todosCollectionRef = collection(db, "todos");
   try {
+    const querySnapshot = await getDocs(
+      query(todosCollectionRef, where("title", "==", todo.title))
+    );
+
+    if (!querySnapshot.empty) {
+      return { status: false, message: "Dữ liệu đã tồn tại" };
+    }
+
     const docRef = await addDoc(todosCollectionRef, todo);
     const newTodo = {
       ...todo,
       id: docRef.id,
     };
     dispatch(addTodo(newTodo));
+    return { status: true, message: "Thêm task thành công" }
   } catch (error) {
     console.error("Error adding todo:", error);
   }
