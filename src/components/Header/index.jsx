@@ -40,7 +40,13 @@ const Header = () => {
           />
         </Link>
         <div className="col-8 col-sm-6 d-none d-sm-flex align-items-start justify-content-end">
-          <Button onClick={logout}>Logout</Button>
+      {authUser ? (
+            <Button onClick={logout}>Logout</Button>
+          ) : (
+            <Link to={"/login"} style={{ textDecoration: "none" }}>
+              Login
+            </Link>
+          )}
         </div>
         <div className="col-4 d-flex d-sm-none align-items-center justify-content-center">
           {authUser ? (
