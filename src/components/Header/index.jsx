@@ -48,7 +48,6 @@ const Header = () => {
             </Link>
           )}
 
-          <Button onClick={logout}>Logout</Button>
         </div>
         <div className="col-4 d-flex d-sm-none align-items-center justify-content-center">
           {authUser ? (
